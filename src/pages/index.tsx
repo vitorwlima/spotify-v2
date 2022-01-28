@@ -1,6 +1,8 @@
 import Head from 'next/head'
 
-const Home = () => {
+import HomeTemplate from 'src/templates/Home'
+
+const HomePage = () => {
   return (
     <>
       <Head>
@@ -8,11 +10,9 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex items-center justify-center">
-        <h1 className="text-3xl font-semibold text-green-500">Spotify V2</h1>
-      </main>
+      <HomeTemplate />
     </>
   )
 }
 
-export default Home
+export default HomePage
