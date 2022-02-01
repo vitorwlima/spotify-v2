@@ -38,6 +38,5 @@ export default NextAuth({
 
       return await refreshSpotifyAccessToken(token)
     },
-    // session callback here if needed
   },
 })

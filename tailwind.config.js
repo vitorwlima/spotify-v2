@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
@@ -6,6 +8,10 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    colors: {
+      ...colors,
+      'green-main': '#1ED760',
+    },
   },
   plugins: [],
 }
