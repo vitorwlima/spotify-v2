@@ -9,23 +9,21 @@ import {
 
 import { SidebarButton, SeparatorLine } from 'src/components'
 
-const SIDEBAR_BUTTON_STYLE = 'h-5 w-5'
-
 const SIDEBAR_FIRST_BUTTONS = [
   {
     id: 1,
     label: 'Home',
-    icon: <HomeIcon className={SIDEBAR_BUTTON_STYLE} />,
+    icon: <HomeIcon />,
   },
   {
     id: 2,
     label: 'Search',
-    icon: <SearchIcon className={SIDEBAR_BUTTON_STYLE} />,
+    icon: <SearchIcon />,
   },
   {
     id: 3,
     label: 'Your Library',
-    icon: <LibraryIcon className={SIDEBAR_BUTTON_STYLE} />,
+    icon: <LibraryIcon />,
   },
 ]
 
@@ -33,17 +31,17 @@ const SIDEBAR_SECOND_BUTTONS = [
   {
     id: 1,
     label: 'Create Playlist',
-    icon: <PlusCircleIcon className={SIDEBAR_BUTTON_STYLE} />,
+    icon: <PlusCircleIcon />,
   },
   {
     id: 2,
     label: 'Liked Songs',
-    icon: <HeartIcon className={SIDEBAR_BUTTON_STYLE} />,
+    icon: <HeartIcon />,
   },
   {
     id: 3,
     label: 'Your Episodes',
-    icon: <RssIcon className={SIDEBAR_BUTTON_STYLE} />,
+    icon: <RssIcon />,
   },
 ]
 
