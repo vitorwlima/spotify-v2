@@ -47,7 +47,7 @@ const SIDEBAR_SECOND_BUTTONS = [
 
 const Sidebar = () => {
   return (
-    <div className="border-r border-gray-900 p-5 text-sm text-gray-500">
+    <div className="h-screen overflow-y-scroll border-r border-gray-900 p-5 text-sm text-gray-500 scrollbar-hide">
       <div className="space-y-4">
         {SIDEBAR_FIRST_BUTTONS.map(({ id, icon, label }) => (
           <SidebarButton key={id} icon={icon} label={label} />

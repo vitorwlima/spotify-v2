@@ -1,10 +1,11 @@
 import { Sidebar } from 'src/components'
+import { Center } from '../../components/Center'
 
 const HomeTemplate = () => {
   return (
-    <div className="h-screen overflow-hidden bg-black">
+    <div className="flex h-screen overflow-hidden bg-black">
       <Sidebar />
-      <main></main>
+      <Center />
     </div>
   )
 }
