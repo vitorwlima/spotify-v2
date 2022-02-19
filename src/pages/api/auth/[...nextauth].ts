@@ -38,5 +38,9 @@ export default NextAuth({
 
       return await refreshSpotifyAccessToken(token)
     },
+    session: async ({ session, token }) => {
+      if (session.user) session.user.token = token
+      return session
+    },
   },
 })
