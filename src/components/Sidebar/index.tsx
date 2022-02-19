@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   HeartIcon,
   HomeIcon,
@@ -8,6 +9,8 @@ import {
 } from '@heroicons/react/outline'
 
 import { SidebarButton, SeparatorLine } from 'src/components'
+import { useSpotify } from 'src/hooks'
+import { useSession } from 'next-auth/react'
 
 const SIDEBAR_FIRST_BUTTONS = [
   {
@@ -46,6 +49,26 @@ const SIDEBAR_SECOND_BUTTONS = [
 ]
 
 const Sidebar = () => {
+  const spotifyApi = useSpotify()
+  const { data: session } = useSession()
+
+  const [playlists, setPlaylists] = useState<
+    SpotifyApi.PlaylistObjectSimplified[]
+  >([])
+
+  useEffect(() => {
+    const getUserPlaylists = async () => {
+      const {
+        body: { items },
+      } = await spotifyApi.getUserPlaylists()
+      setPlaylists(items)
+    }
+
+    if (spotifyApi.getAccessToken()) {
+      getUserPlaylists()
+    }
+  }, [spotifyApi, session])
+
   return (
     <div className="h-screen overflow-y-scroll border-r border-gray-900 p-5 text-sm text-gray-500 scrollbar-hide">
       <div className="space-y-4">
@@ -57,8 +80,8 @@ const Sidebar = () => {
           <SidebarButton key={id} icon={icon} label={label} />
         ))}
         <SeparatorLine />
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-          <SidebarButton key={item} label="Playlist name" />
+        {playlists.map((playlist) => (
+          <SidebarButton key={playlist.id} label={playlist.name} />
         ))}
       </div>
     </div>
