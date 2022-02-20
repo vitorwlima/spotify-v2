@@ -7,10 +7,12 @@ import {
   RssIcon,
   SearchIcon,
 } from '@heroicons/react/outline'
+import { useSession } from 'next-auth/react'
+import { useRecoilState } from 'recoil'
 
 import { SidebarButton, SeparatorLine } from 'src/components'
 import { useSpotify } from 'src/hooks'
-import { useSession } from 'next-auth/react'
+import { playlistIdState } from 'src/atoms'
 
 const SIDEBAR_FIRST_BUTTONS = [
   {
@@ -51,6 +53,8 @@ const SIDEBAR_SECOND_BUTTONS = [
 const Sidebar = () => {
   const spotifyApi = useSpotify()
   const { data: session } = useSession()
+  const [currentPlaylistId, setCurrentPlaylistId] =
+    useRecoilState(playlistIdState)
 
   const [playlists, setPlaylists] = useState<
     SpotifyApi.PlaylistObjectSimplified[]
@@ -81,7 +85,12 @@ const Sidebar = () => {
         ))}
         <SeparatorLine />
         {playlists.map((playlist) => (
-          <SidebarButton key={playlist.id} label={playlist.name} />
+          <SidebarButton
+            key={playlist.id}
+            label={playlist.name}
+            selected={playlist.id === currentPlaylistId}
+            onClick={() => setCurrentPlaylistId(playlist.id)}
+          />
         ))}
       </div>
     </div>
