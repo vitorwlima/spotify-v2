@@ -1,4 +1,4 @@
-import { Sidebar, Center } from 'src/components'
+import { Sidebar, Center, Player } from 'src/components'
 
 const HomeTemplate = () => {
   return (
@@ -7,6 +7,10 @@ const HomeTemplate = () => {
         <Sidebar />
         <Center />
       </main>
+
+      <div>
+        <Player />
+      </div>
     </div>
   )
 }
