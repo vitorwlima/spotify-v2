@@ -15,13 +15,17 @@ const Song = ({ track, order }: SongProps) => {
     useRecoilState(currentTrackIdState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
 
-  const playSong = () => {
+  const playSong = async () => {
     setCurrentTrackId(track.id)
     setIsPlaying(true)
 
-    spotifyApi.play({
-      uris: [track.uri],
-    })
+    try {
+      await spotifyApi.play({
+        uris: [track.uri],
+      })
+    } catch (error) {
+      console.log('ERROR AT FN: playSong', error)
+    }
   }
 
   return (
