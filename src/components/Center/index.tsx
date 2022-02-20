@@ -6,6 +6,7 @@ import { ChevronDownIcon } from '@heroicons/react/outline'
 import { getRandomIntFrom } from 'src/utils'
 import { playlistIdState, playlistState } from 'src/atoms'
 import { useSpotify } from 'src/hooks'
+import { Songs } from 'src/components'
 
 const TOP_SECTION_COLORS = [
   'from-indigo-500',
@@ -56,7 +57,7 @@ const Center = () => {
   }, [currentPlaylistId])
 
   return (
-    <main className="flex-grow">
+    <main className="h-screen flex-grow overflow-y-scroll scrollbar-hide">
       <header className="absolute top-5 right-8">
         <div className="flex cursor-pointer items-center space-x-3 rounded-full bg-black p-1 pr-2 text-white opacity-90 hover:opacity-80">
           <img
@@ -89,6 +90,10 @@ const Center = () => {
           <p className="text-xl font-bold">Start by selecting a playlist!</p>
         )}
       </section>
+
+      <div>
+        <Songs />
+      </div>
     </main>
   )
 }
