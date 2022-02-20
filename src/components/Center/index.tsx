@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { ChevronDownIcon } from '@heroicons/react/outline'
 
 import { getRandomIntFrom } from 'src/utils'
-import { playlistIdState } from 'src/atoms'
+import { playlistIdState, playlistState } from 'src/atoms'
+import { useSpotify } from 'src/hooks'
 
 const TOP_SECTION_COLORS = [
   'from-indigo-500',
@@ -17,9 +18,24 @@ const TOP_SECTION_COLORS = [
 ]
 
 const Center = () => {
+  const spotifyApi = useSpotify()
   const { data: session } = useSession()
   const [gradientColor, setGradientColor] = useState(TOP_SECTION_COLORS[0])
   const currentPlaylistId = useRecoilValue(playlistIdState)
+  const [currentPlaylist, setCurrentPlaylist] = useRecoilState(playlistState)
+
+  useEffect(() => {
+    const getPlaylist = async () => {
+      try {
+        const { body } = await spotifyApi.getPlaylist(currentPlaylistId)
+        setCurrentPlaylist(body)
+      } catch (error) {
+        console.log('ERROR AT FN: getPlaylist', error)
+      }
+    }
+
+    currentPlaylistId && getPlaylist()
+  }, [currentPlaylistId])
 
   useEffect(() => {
     const setColor = () => {
@@ -54,8 +70,25 @@ const Center = () => {
       </header>
 
       <section
-        className={`flex h-80 items-end space-x-7 bg-gradient-to-b ${gradientColor} to-black text-white`}
-      ></section>
+        className={`flex h-80 items-end space-x-7 bg-gradient-to-b ${gradientColor} to-black p-8 text-white`}
+      >
+        {currentPlaylist ? (
+          <>
+            <img
+              className="h-44 w-44 shadow-2xl"
+              src={currentPlaylist.images?.[0].url}
+            />
+            <div>
+              <p>PLAYLIST</p>
+              <h2 className="mt-2 text-2xl font-bold md:text-3xl xl:text-5xl">
+                {currentPlaylist.name}
+              </h2>
+            </div>
+          </>
+        ) : (
+          <p className="text-xl font-bold">Start by selecting a playlist!</p>
+        )}
+      </section>
     </main>
   )
 }

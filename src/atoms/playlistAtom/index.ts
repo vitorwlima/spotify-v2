@@ -1,8 +1,13 @@
 import { atom } from 'recoil'
 
-const playlistIdState = atom({
+const playlistIdState = atom<string>({
   key: 'playlistIdState',
   default: '',
 })
 
-export { playlistIdState }
+const playlistState = atom<SpotifyApi.SinglePlaylistResponse | null>({
+  key: 'playlistState',
+  default: null,
+})
+
+export { playlistIdState, playlistState }

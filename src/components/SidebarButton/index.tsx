@@ -14,7 +14,7 @@ const SidebarButton = ({
 }: SidebarButtonProps) => {
   return (
     <button
-      className={`flex w-full items-center space-x-2 ${
+      className={`flex w-full items-center space-x-2 text-left ${
         selected && 'text-white'
       } hover:text-white`}
       {...rest}
