@@ -38,18 +38,22 @@ const useSongInfo = () => {
   useEffect(() => {
     const getSongInfo = async () => {
       if (currentIdTrack) {
-        const trackInfo = await fetch(
-          `https://api.spotify.com/v1/tracks/${currentIdTrack}`,
-          {
-            headers: {
-              Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
-            },
-          }
-        )
-          .then((res) => res.json())
-          .then((res: SpotifyApi.TrackObjectFull) => res)
+        try {
+          const trackInfo = await fetch(
+            `https://api.spotify.com/v1/tracks/${currentIdTrack}`,
+            {
+              headers: {
+                Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
+              },
+            }
+          )
+            .then((res) => res.json())
+            .then((res: SpotifyApi.TrackObjectFull) => res)
 
-        setSongInfo(trackInfo)
+          setSongInfo(trackInfo)
+        } catch (error) {
+          console.log('ERROR AT FN: getSongInfo', error)
+        }
       }
     }
 

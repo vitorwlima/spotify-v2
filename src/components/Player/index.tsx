@@ -19,16 +19,20 @@ const Player = () => {
   const [volume, setVolume] = useState(25)
 
   const switchSongPlayingStatus = async () => {
-    const {
-      body: { is_playing },
-    } = await spotifyApi.getMyCurrentPlaybackState()
+    try {
+      const {
+        body: { is_playing },
+      } = await spotifyApi.getMyCurrentPlaybackState()
 
-    setIsPlaying(!is_playing)
+      setIsPlaying(!is_playing)
 
-    if (is_playing) {
-      await spotifyApi.pause()
-    } else {
-      await spotifyApi.play()
+      if (is_playing) {
+        await spotifyApi.pause()
+      } else {
+        await spotifyApi.play()
+      }
+    } catch (error) {
+      console.log('ERROR AT FN: switchSongPlayingStatus', error)
     }
   }
 

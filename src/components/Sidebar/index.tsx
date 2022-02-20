@@ -62,15 +62,17 @@ const Sidebar = () => {
 
   useEffect(() => {
     const getUserPlaylists = async () => {
-      const {
-        body: { items },
-      } = await spotifyApi.getUserPlaylists()
-      setPlaylists(items)
+      try {
+        const {
+          body: { items },
+        } = await spotifyApi.getUserPlaylists()
+        setPlaylists(items)
+      } catch (error) {
+        console.log('ERROR AT FN: getUserPlaylists', error)
+      }
     }
 
-    if (spotifyApi.getAccessToken()) {
-      getUserPlaylists()
-    }
+    getUserPlaylists()
   }, [spotifyApi, session])
 
   return (
