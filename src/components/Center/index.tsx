@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { useRecoilValue } from 'recoil'
 import { ChevronDownIcon } from '@heroicons/react/outline'
 
 import { getRandomIntFrom } from 'src/utils'
+import { playlistIdState } from 'src/atoms'
 
 const TOP_SECTION_COLORS = [
   'from-indigo-500',
@@ -17,11 +19,25 @@ const TOP_SECTION_COLORS = [
 const Center = () => {
   const { data: session } = useSession()
   const [gradientColor, setGradientColor] = useState(TOP_SECTION_COLORS[0])
+  const currentPlaylistId = useRecoilValue(playlistIdState)
 
   useEffect(() => {
-    const index = getRandomIntFrom(0, TOP_SECTION_COLORS.length - 1)
-    setGradientColor(TOP_SECTION_COLORS[index])
-  }, [])
+    const setColor = () => {
+      const index = getRandomIntFrom(0, TOP_SECTION_COLORS.length - 1)
+
+      if (
+        index ===
+        TOP_SECTION_COLORS.findIndex((color) => color === gradientColor)
+      ) {
+        setColor()
+        return
+      }
+
+      setGradientColor(TOP_SECTION_COLORS[index])
+    }
+
+    setColor()
+  }, [currentPlaylistId])
 
   return (
     <main className="flex-grow">
