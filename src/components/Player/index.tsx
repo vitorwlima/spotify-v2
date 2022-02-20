@@ -56,7 +56,7 @@ const Player = () => {
         />
         <div>
           <h3 className="text-white">{songInfo.name}</h3>
-          <p>{songInfo.album.name}</p>
+          <p>{songInfo.artists?.[0].name}</p>
         </div>
       </div>
       <div className="flex place-content-center items-center space-x-3">
